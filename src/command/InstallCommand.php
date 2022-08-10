@@ -64,7 +64,7 @@ class InstallCommand extends HyperfCommand
         $this->call('vendor:publish',['package'=>'hyperf/filesystem']);
         $file = BASE_PATH.'/config/autoload/file.php';
         $content = file_get_contents($file);
-        $content = str_replace("__DIR__ . '/../../runtime'","BASE_PATH . '/public/storage'",$content);
+        $content = str_replace("__DIR__ . '/../../runtime'","BASE_PATH . '/public/storage',".PHP_EOL."\t\t\t'url'=>'http://127.0.0.1:9501/storage'",$content);
         file_put_contents($file,$content);
         $this->call('vendor:publish',['package'=>'hyperf/async-queue']);
         $this->output->success('install success');
