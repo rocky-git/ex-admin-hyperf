@@ -24,7 +24,7 @@ class RequestMiddleware implements MiddlewareInterface
             foreach ($request->getUploadedFiles() as $key=>$file){
                 $files[$key] = new UploadedFile($file->getPathname(),$file->getClientFilename(),$file->getMimeType(),$file->getError());
             };
-            $q->initialize($request->getQueryParams(),$request->getParsedBody(),[],$request->getCookieParams(),$files,$request->getServerParams());
+            $q->initialize($request->getQueryParams(),$request->getParsedBody(),[],$request->getCookieParams(),$files,$request->getServerParams(),$request->getBody()->getContents());
             $q->headers = new HeaderBag($request->getHeaders());
             $q->setMethod($request->getMethod());
         });
