@@ -12,7 +12,7 @@ use Symfony\Component\Filesystem\Filesystem;
 class ConfigProvider
 {
     protected function updateVersion(){
-        $path = BASE_PATH.'/public/ex-admin';
+        $path = BASE_PATH.'/public/exadmin';
         $file = $path.'/version';
         $update = false;
         if(!is_file($file)){
