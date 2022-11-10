@@ -39,7 +39,7 @@ class InstallCommand extends HyperfCommand
     public function handle()
     {
         $filesystem = new Filesystem;
-        $filesystem->mirror(dirname(__DIR__,3) . '/ex-admin-ui/resources',BASE_PATH.'/public/ex-admin',null,['override'=>$this->input->getOption('force')]);
+        $filesystem->mirror(dirname(__DIR__,3) . '/ex-admin-ui/resources',BASE_PATH.'/public/exadmin',null,['override'=>$this->input->getOption('force')]);
         $path = plugin()->download('hyperf',$this->input->getOption('versions'));
         if ($path === false) {
             $this->output->warning('下载插件失败');

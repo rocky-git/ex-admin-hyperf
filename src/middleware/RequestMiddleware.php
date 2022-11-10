@@ -25,6 +25,7 @@ class RequestMiddleware implements MiddlewareInterface
                 $files[$key] = new UploadedFile($file->getPathname(),$file->getClientFilename(),$file->getMimeType(),$file->getError());
             };
             $q->initialize($request->getQueryParams(),$request->getParsedBody(),[],$request->getCookieParams(),$files,$request->getServerParams(),$request->getBody()->getContents());
+            $q->server->set('REQUEST_URI',$request->getUri()->getPath());
             $q->headers = new HeaderBag($request->getHeaders());
             $q->setMethod($request->getMethod());
         });
