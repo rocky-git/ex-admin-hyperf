@@ -95,7 +95,9 @@ php bin/hyperf.php start
 
 
 ### License
+
 ------------
+
 Ex-Admin遵循Apache2开源协议发布，并提供免费使用
 
 ### 交流QQ群 579150457

@@ -9,7 +9,7 @@ use Hyperf\Command\Annotation\Command;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Filesystem\Filesystem;
-
+use Hyperf\DbConnection\Db;
 /**
  * @Command
  */
@@ -34,6 +34,8 @@ class InstallCommand extends HyperfCommand
         $this->setDescription('Install the admin package');
         $this->addOption('force','f',InputOption::VALUE_NONE,'Force overwrite file');
         $this->addOption('versions', null, InputOption::VALUE_REQUIRED, 'version number');
+        $this->addOption('username', null,InputOption::VALUE_REQUIRED, 'username');
+        $this->addOption('password', null,InputOption::VALUE_REQUIRED, 'password');
     }
 
     public function handle()
@@ -53,7 +55,16 @@ class InstallCommand extends HyperfCommand
         }
         unlink($path);
         plugin()->buildIde();
-        plugin()->hyperf->install();
+        $username = $this->input->getOption('username');
+        $password = $this->input->getOption('password');
+        if($username && $password){
+            $table = plugin()->hyperf->config('database.user_table');
+            Db::table($table)->where('id',1)
+                ->update([
+                    'username' => $username,
+                    'password' => password_hash($password,PASSWORD_DEFAULT),
+                ]);
+        }
         $file = BASE_PATH.'/composer.json';
         $content = file_get_contents($file);
         if(strpos($content,'"plugin\\\\"') === false){
